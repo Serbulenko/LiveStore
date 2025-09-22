@@ -25,17 +25,39 @@ class File {
 		$files = glob(DIR_CACHE . 'cache.' . preg_replace('/[^A-Z0-9\._-]/i', '', $key) . '.*');
 
 		if ($files) {
-			$handle = fopen($files[0], 'r');
+			if (file_exists($files[0])) {
+				try {
+					$handle = @fopen($files[0], 'r');
 
-			flock($handle, LOCK_SH);
+					if ( $handle === false ) {
+						return false;
+					}
 
-			$data = fread($handle, filesize($files[0]));
+					if ( flock($handle, LOCK_SH) ) {
+						$size = @filesize($files[0]);
 
-			flock($handle, LOCK_UN);
+						if ($size === false) {
+							flock($handle, LOCK_UN);
+							fclose($handle);
+							return false;
+						}
 
-			fclose($handle);
+						if ($size > 0) {
+							$data = fread($handle, $size);
+						} else {
+							$data = '';
+						}
 
-			return json_decode($data, true);
+						flock($handle, LOCK_UN);
+
+						fclose($handle);
+
+						return json_decode($data, true);
+					}
+				} catch (Exception $e) {
+					return false;
+				}
+			}
 		}
 
 		return false;
@@ -69,9 +91,10 @@ class File {
 		if ($files) {
 			foreach ($files as $file) {
 				if (file_exists($file)) {
-					unlink($file);
+					@unlink($file);
 				}
 			}
 		}
 	}
 }
+
