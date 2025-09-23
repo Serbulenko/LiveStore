@@ -41,6 +41,8 @@ a:hover, a:focus {text-decoration:none}
 
 .container-fluid {padding:0 20px}
 
+.dropdown-menu{border-radius:var(--border-radius-1)}
+
 #header {min-height:0px;background:#fff;border-bottom:1px solid #d8d8d8;margin:0;padding:0;box-shadow:0px 0px 3px #ccc}
 #header .container-fluid {padding:0}
 #header .navbar-header {transition:0.3s all;border-right:1px solid #eee;width:235px;display:none}
@@ -158,6 +160,7 @@ input[type="checkbox"]:checked::after, .checkbox input[type="checkbox"]:checked:
 .table thead > tr > td, .table tbody > tr > td {vertical-align:middle}
 .table a.asc:after {content:" \f106";font-family:FontAwesome}
 .table a.desc:after {content:" \f107";font-family:FontAwesome}
+.table tr{position:relative}
 
 .pagination {margin:0}
 
@@ -242,28 +245,28 @@ select, input[type="text"], input[type="password"], input[type="datetime"], inpu
 }
 
 #oc-search{padding:0;margin:0}
+#oc-search .dropdown-header{margin:5px 0}
 #oc-search .caret{margin:0 0 0 10px}
 #oc-search .input-group{width:100%}
 #oc-search .input-group-addon, #oc-search .input-group-btn {width:1% !important}
 #oc-search .btn {background:#ddd;border:0 none !important;box-shadow:none !important;height:35px !important;margin-top:5px}
-#oc-search input {background:#fff none repeat scroll 0 0;border-color:#ddd;box-shadow:none !important;color:#373737 !important;height:35px !important;margin-bottom:0 !important;margin-left:0 !important;margin-right:0 !important;margin-top:5px;padding-top:9px;border-radius:var(--border-radius-0-1-1-0);}
+#oc-search input {background:#fff none repeat scroll 0 0;border-color:#ddd;box-shadow:none !important;color:#373737 !important;height:35px !important;margin-bottom:0 !important;margin-left:0 !important;margin-right:0 !important;margin-top:5px;padding-top:9px;border-radius:var(--border-radius-0-1-1-0)}
 #oc-search input::-webkit-input-placeholder {color:#f8f8f8 !important;opacity:0.7;text-shadow:none}
 #oc-search input:-moz-placeholder {color:#f8f8f8 !important;opacity:0.7;text-shadow:none}
 #oc-search input::-moz-placeholder{color:#6d6d6d !important;opacity:0.7;text-shadow:none}
 #oc-search input:-ms-input-placeholder {color:#f8f8f8 !important;opacity:0.7;text-shadow:none}
 #oc-search ul li a span {margin-left:8px}
-#oc-search ul li a{color:#7C7A7A;cursor:pointer}
-#oc-search ul li a:hover{color:#f8f8f8;background-color:#008DB9}
+#oc-search ul li a{cursor:pointer}
 #oc-search-div{padding-left:1px !important;padding-right:0 !important;padding-top:8px !important}
-#oc-search-result {display:none;position:absolute;padding:5px 0;padding-right:15px;margin:2px 0 0;list-style:none;font-size:12px;text-align:left;background-color:#fff;border:1px solid #ccc;border:1px solid rgba(0, 0, 0, 0.15);border-radius:3px;box-shadow:0 6px 12px rgba(0, 0, 0, 0.175);background-clip:padding-box;z-index:999;width:100%;min-width:347px}
-#oc-search-result ul {margin:10px;padding:0}
-#oc-search-result ul .result-header {margin:10px 0px;display:block;padding:0;font-size:12px;line-height:1.42857143;color:#777;white-space:nowrap;border-bottom:1px solid #E8E7E7}
+#oc-search-result {display:none;position:absolute;margin:2px 0 0;background-color:#fff;border-radius:var(--border-radius-1);box-shadow:0 6px 12px rgba(0, 0, 0, 0.3);background-clip:padding-box;z-index:999;}
+#oc-search-result ul {margin:0 15px 10px;padding:0}
+#oc-search-result ul .result-header {margin:15px 0;font-weight:700;white-space:nowrap}
 #oc-search-result ul li {list-style:none}
-#oc-search-result ul li a {text-decoration:none;color:#777;line-height:30px;border-bottom:1px solid #FAF8F8}
+#oc-search-result ul li a {display:flex !important;align-items:center;padding:5px}
 #oc-search-result ul li a:hover {background:#f8f8f8}
-#oc-search-result ul li a img{float:left}
+#oc-search-result ul li a img{}
 #oc-search-result ul li a i {float:left;line-height:30px}
-#oc-search-result ul li a span{float:left;white-space:nowrap;margin-left:10px;vertical-align:top}
+#oc-search-result ul li a span{white-space:nowrap;margin-left:10px}
 
 #loader-search {display:none;position:absolute;top:15px;right:15px;z-index:999}
 
