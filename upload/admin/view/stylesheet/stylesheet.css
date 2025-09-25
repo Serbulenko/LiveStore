@@ -19,7 +19,7 @@
     --border-radius-1-1-1-0: 8px 8px 8px 0;
 }
 
-html, body {height:100%;margin:0;padding:0;font-family:'Inter', sans-serif;color:#545454;text-rendering:optimizeLegibility}
+html, body {height:100%;margin:0;padding:0;font-family:'Inter', sans-serif;color:#424242;text-rendering:optimizeLegibility}
 
 h1, h2, h3, h4, h5, h6, p {margin-top:0}
 
@@ -37,7 +37,7 @@ h1, h2, h3, h4, h5, h6, p {margin-top:0}
 
 a:hover, a:focus {text-decoration:none}
 
-#container {min-height:100%;width:100%;position:relative;background:#f6f6f6;overflow:hidden}
+#container {min-height:100%;width:100%;position:relative;background:#f7f7f7;overflow:hidden}
 
 .container-fluid {padding:0 20px}
 
@@ -177,7 +177,6 @@ input[type="checkbox"]:checked::after, .checkbox input[type="checkbox"]:checked:
 .panel-heading h3 {font-weight:500;display:inline-block}
 .panel-heading .btn-default{background:#fff;border:solid 1px #ddd}
 
-
 /* Primary Panel */
 .panel-primary {border:1px solid #c3e4f6;border-top:2px solid #5cb7e7}
 .panel-primary .panel-heading {color:#1e91cf;border-color:#96d0f0;background:white}
@@ -206,12 +205,6 @@ input[type="checkbox"]:checked::after, .checkbox input[type="checkbox"]:checked:
 .tile .tile-body h2 {font-size:42px}
 .tile-footer {padding:7px 15px 9px;background-color:rgba(0, 0, 0, 0.1)}
 .tile-footer a{font-size:.9em;font-weight:500}
-
-#stats {color:#808b9c;background:#2e3a47;margin:15px;padding:5px 0;border-radius:var(--border-radius-1)}
-#stats ul, #stats li {padding:0;margin:0;list-style:none}
-#stats li {font-size:11px;color:#9d9d9d;padding:5px 10px;border-bottom:1px dotted #373737}
-#stats div:first-child {margin-bottom:4px}
-#stats .progress {height:3px;margin-bottom:0}
 
 .jqvmap-label {z-index:999}
 
@@ -249,12 +242,8 @@ select, input[type="text"], input[type="password"], input[type="datetime"], inpu
 #oc-search .caret{margin:0 0 0 10px}
 #oc-search .input-group{width:100%}
 #oc-search .input-group-addon, #oc-search .input-group-btn {width:1% !important}
-#oc-search .btn {background:#ddd;border:0 none !important;box-shadow:none !important;height:35px !important;margin-top:5px}
+#oc-search .btn {margin-top:5px}
 #oc-search input {background:#fff none repeat scroll 0 0;border-color:#ddd;box-shadow:none !important;color:#373737 !important;height:35px !important;margin-bottom:0 !important;margin-left:0 !important;margin-right:0 !important;margin-top:5px;padding-top:9px;border-radius:var(--border-radius-0-1-1-0)}
-#oc-search input::-webkit-input-placeholder {color:#f8f8f8 !important;opacity:0.7;text-shadow:none}
-#oc-search input:-moz-placeholder {color:#f8f8f8 !important;opacity:0.7;text-shadow:none}
-#oc-search input::-moz-placeholder{color:#6d6d6d !important;opacity:0.7;text-shadow:none}
-#oc-search input:-ms-input-placeholder {color:#f8f8f8 !important;opacity:0.7;text-shadow:none}
 #oc-search ul li a span {margin-left:8px}
 #oc-search ul li a{cursor:pointer}
 #oc-search-div{padding-left:1px !important;padding-right:0 !important;padding-top:8px !important}
@@ -270,9 +259,18 @@ select, input[type="text"], input[type="password"], input[type="datetime"], inpu
 
 #loader-search {display:none;position:absolute;top:15px;right:15px;z-index:999}
 
-.btn{height:35px;min-width:35px;border:none;border-radius:var(--border-radius-1);outline:none !important;-moz-user-select:none !important;-webkit-user-select:none !important}
-.btn-default{background:#ddd}
+.btn{height:35px;min-width:35px;line-height:35px;padding:0 12px;border:none;border-radius:var(--border-radius-1);outline:none !important;-moz-user-select:none !important;-webkit-user-select:none !important}
+.btn-xs{height:28px;line-height:28px;padding:0 8px}
+.btn-sm{height:32px;line-height:32px;padding:0 10px}
+.btn-lg{height:38px;line-height:38px;padding:0 15px}
 
+.btn-default{color:#555;background:#eee}
+.btn-default:hover, .btn-default:focus {color:#555;background:#e5e5e5}
+.btn-default:active, .btn-default.active, .open > .btn-default.dropdown-toggle {color:#333;background:#ddd}
+
+#filter-product .panel-body{}
+#filter-product .form-group {padding:0 0 20px;border:none}
+#filter-product .form-group:last-child{padding:0}
 .open-close-filter{display:none}
 
 .modal-content {border-radius:var(--border-radius-1)}
