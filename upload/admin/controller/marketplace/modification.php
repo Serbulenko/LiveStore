@@ -87,7 +87,7 @@ class ControllerMarketplaceModification extends Controller {
 
 		if ($this->request->server['REQUEST_METHOD'] == 'POST' && $this->validateForm()) {
 
-			$xml  = html_entity_decode($this->request->post['xml'] ?? '', ENT_QUOTES, 'UTF-8');
+			$xml = $this->request->post['xml'] ?? '';
 			$meta = $this->parseMetaFromXml($xml);
 
 			$name    = $this->request->post['name']    ?? ($meta['name'] ?: '');
@@ -1325,33 +1325,14 @@ class ControllerMarketplaceModification extends Controller {
 		}
 
 		if (isset($this->request->post['xml'])) {
-			$data['xml'] = ltrim($this->request->post['xml'], "﻿");
-		} elseif ($modification) {
-			$data['xml'] = ltrim($modification['xml'], "﻿");
-		} else {
-			$default_xml = <<<'XML'
-	<?xml version="1.0" encoding="utf-8"?>
-	<modification>
-	  <name></name>
-	  <code></code>
-	  <version>1.0.0</version>
-	  <author></author>
-	  <link></link>
 
-	  <!-- пример:
-	  <file path="catalog/controller/common/home.php">
-		<operation>
-		  <search><![CDATA[$this->document->setTitle(]]></search>
-		  <add position="after"><![CDATA[
-			// demo
-		  ]]></add>
-		</operation>
-	  </file>
-	  -->
-	</modification>
-	XML;
-			$data['xml'] = htmlentities($default_xml);
-		}
+    $data['xml'] = ltrim($this->request->post['xml'], "﻿");
+} elseif ($modification) {
+    $data['xml'] = html_entity_decode(ltrim($modification['xml'], "﻿"), ENT_QUOTES, 'UTF-8');
+} else {
+    $data['xml'] = '';
+}
+
 
 		$data['header']      = $this->load->controller('common/header');
 		$data['column_left'] = $this->load->controller('common/column_left');
