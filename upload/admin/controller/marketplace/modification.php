@@ -564,6 +564,12 @@ class ControllerMarketplaceModification extends Controller {
 
 				$dom = new DOMDocument('1.0', 'UTF-8');
 				$dom->preserveWhiteSpace = false;
+				$xml = trim($xml);
+				$xml = ltrim($xml, "\xEF\xBB\xBF");
+
+				if (empty($xml) || strpos($xml, '<') !== 0) {
+					continue;
+				}
 				$dom->loadXml($xml);
 
 				// Log
