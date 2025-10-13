@@ -88,7 +88,12 @@ footer h5 {margin:0 0 15px;font-weight:700;font-size:1.2em;px;color:#fff}
 footer li{padding:0 0 5px}
 
 .alert {padding:8px 14px 8px 14px}
-.alert .close{right:0}
+.alert > .close {
+	position: relative;
+	top: -2px;
+	right: 0px;
+	color: inherit;
+}
 
 .breadcrumb {margin:0 0 20px 0;font-size:.85em;border-radius:6px}
 .breadcrumb i {font-size:15px}
