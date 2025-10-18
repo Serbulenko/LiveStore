@@ -224,6 +224,13 @@
                 next();
               }
             }
+			
+			if (json['success']) {
+           $('#progress-bar').css('width', '100%').addClass('progress-bar-success');
+           $('#progress-text').html('<span class="text-success">' + json['success'] + '</span>');
+           setTimeout(function() { location.reload(); }, 2000);
+         }
+		 
           },
           error: function(xhr, ajaxOptions, thrownError) {
             alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);

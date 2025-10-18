@@ -88,12 +88,16 @@ class ControllerMarketplaceModification extends Controller {
 			$xml  = html_entity_decode($this->request->post['xml'] ?? '', ENT_QUOTES, 'UTF-8');
 			$meta = $this->parseMetaFromXml($xml);
 
-			$name    = $this->request->post['name']    ?? ($meta['name'] ?: '');
+			$name    = $meta['name'] ?: '';
 			$code    = $this->request->post['code']    ?? $meta['code'];
 			$author  = $this->request->post['author']  ?? $meta['author'];
 			$version = $this->request->post['version'] ?? $meta['version'];
 			$link    = $this->request->post['link']    ?? $meta['link'];
-			$status  = isset($this->request->post['status']) ? (int)$this->request->post['status'] : 1;
+			if (empty($name)) {
+			  $this->error['xml'] = $this->language->get('error_name');
+			  $this->getForm();
+			  return;
+		   }
 
 			if (!$code) {
 				$base = preg_replace('~[^a-z0-9\.\-_]+~i', '_', $name ?: 'my_mod');
@@ -1334,10 +1338,6 @@ class ControllerMarketplaceModification extends Controller {
     protected function validateForm() {
         if (!$this->user->hasPermission('modify', 'marketplace/modification')) {
             $this->error['warning'] = $this->language->get('error_permission');
-        }
-
-        if ((utf8_strlen($this->request->post['name']) < 2)) {
-            $this->error['name'] = $this->language->get('error_name');
         }
 
         if ($this->error && !isset($this->error['warning'])) {
