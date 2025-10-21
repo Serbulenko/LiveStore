@@ -22,7 +22,7 @@ function getURLVar(key) {
 	}
 }
 
-$(document).ready(function() {
+$(() => {
 	//Form Submit for IE Browser
 	$('button[type=\'submit\']').on('click', function() {
 		$("form[id*='form-']").submit();
@@ -154,6 +154,12 @@ $(document).ready(function() {
 			$element.popover('destroy');
 		});
 	});
+	
+	window.onbeforeunload = () => sessionStorage.setItem('scrollPos', window.scrollY);
+	
+	setTimeout(() => {
+		window.scrollTo(0, sessionStorage.getItem('scrollPos') || 0);
+	}, 50);
 });
 
 // Autocomplete */
