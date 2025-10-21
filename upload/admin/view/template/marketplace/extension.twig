@@ -18,19 +18,10 @@
       <div class="panel-body">
         <fieldset>
           <legend>{{ text_type }}</legend>
-          <div class="well">
-            <div class="input-group">
-              <select name="type" class="form-control">
-                {% for category in categories %}
-                {% if type == category.code %}
-                <option value="{{ category.href }}" selected="selected">{{ category.text }}</option>
-                {% else %}
-                <option value="{{ category.href }}">{{ category.text }}</option>
-                {% endif %}
-                {% endfor %}
-              </select>
-              <span class="input-group-addon"><i class="fa fa-filter"></i> {{ text_filter }}</span>
-            </div>
+          <div id="category-buttons" class="btn-toolbar" role="toolbar" aria-label="{{ text_type }}">
+			{% for category in categories %}
+				<button type="button" class="btn btn-sm {% if type == category.code %}btn-primary{% else %}btn-default{% endif %}" data-href="{{ category.href }}">{{ category.text }}</button>
+			{% endfor %}
           </div>
         </fieldset>
         <div id="extension"></div>
@@ -38,31 +29,35 @@
     </div>
   </div>
   {% if categories %}
-  <script type="text/javascript"><!--
-$('select[name="type"]').on('change', function() {
-	$.ajax({
-		url: $('select[name="type"]').val(),
-		dataType: 'html',
-		beforeSend: function() {
-			$('.fa-filter').addClass('fa-circle-o-notch fa-spin');
-			$('.fa-filter').removeClass('fa-filter');
-			$('select[name=\'type\']').prop('disabled', true);
-		},
-		complete: function() {
-			$('.fa-circle-o-notch').addClass('fa-filter');
-			$('.fa-circle-o-notch').removeClass('fa-circle-o-notch fa-spin');
-			$('select[name=\'type\']').prop('disabled', false);
-		},
-		success: function(html) {
-			$('#extension').html(html);
-		},
-		error: function(xhr, ajaxOptions, thrownError) {
-			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
-		}
-	});
+  <script>
+
+$('#category-buttons').on('click', 'button', function() {
+  var url = $(this).data('href');
+
+  $('#category-buttons button').removeClass('btn-primary').addClass('btn-default');
+  $(this).removeClass('btn-default').addClass('btn-primary');
+
+  $.ajax({
+    url: url,
+    dataType: 'html',
+    beforeSend: function() {
+      $('.fa-filter').addClass('fa-circle-o-notch fa-spin').removeClass('fa-filter');
+      $('#category-buttons button').prop('disabled', true);
+    },
+    complete: function() {
+      $('.fa-circle-o-notch').addClass('fa-filter').removeClass('fa-circle-o-notch fa-spin');
+      $('#category-buttons button').prop('disabled', false);
+    },
+    success: function(html) {
+      $('#extension').html(html);
+    },
+    error: function(xhr, ajaxOptions, thrownError) {
+      alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+    }
+  });
 });
 
-$('select[name="type"]').trigger('change');
+$('#category-buttons button.btn-primary').trigger('click');
 
 $('#extension').on('click', '.btn-success', function(e) {
 	e.preventDefault();
@@ -111,7 +106,7 @@ $('#extension').on('click', '.btn-danger, .btn-warning', function(e) {
 		});
 	}
 });
-//--></script>
+</script>
   {% endif %}
 </div>
 {{ footer }} 
