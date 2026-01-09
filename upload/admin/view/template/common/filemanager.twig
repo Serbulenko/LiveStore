@@ -26,6 +26,7 @@
 			{{ text_select_all|default('Выделить всё') }}
 		</label>
 		</div>
+      <div id="filemanager-images">
       {% for image in images|batch(4) %}
       <div class="row">
         {% for image in image %}
@@ -47,6 +48,7 @@
       </div>
       <br/>
       {% endfor %}
+      </div>
     </div>
     <div class="modal-footer">{{ pagination }}</div>
   </div>
@@ -267,10 +269,12 @@ $(document).on('keydown.fileman', function (e) {
   $modal.on('shown.bs.modal', function () {
     var $inp = $modal.find('input[name="search"]');
     $inp.trigger('focus');
-    var el = $inp.get(0);
-    if (el && el.setSelectionRange) {
-      var len = $inp.val().length;
-      el.setSelectionRange(len, len);
+    if (document.activeElement !== $inp[0]) {
+        var el = $inp.get(0);
+        if (el && el.setSelectionRange) {
+          var len = $inp.val().length;
+          el.setSelectionRange(len, len);
+        }
     }
   });
 
@@ -280,24 +284,38 @@ $(document).on('keydown.fileman', function (e) {
   $modal.on('input', 'input[name="search"]', function () {
     if (composing) return;
     var $inp = $(this);
-    lastQuery = $inp.val();
+    var currentQuery = $inp.val();
 
     clearTimeout(timer);
     timer = setTimeout(function () {
-      if (lastQuery.length < 2) return;
       if (document.activeElement !== $inp[0]) return;
-      if ($inp.val() !== lastQuery) return;
+      if (currentQuery === lastQuery) return;
+      
+      lastQuery = currentQuery;
+
       var url = 'index.php?route=common/filemanager&user_token={{ user_token }}&directory={{ directory }}';
-      url += '&filter_name=' + encodeURIComponent(lastQuery);
+      if (currentQuery) {
+          url += '&filter_name=' + encodeURIComponent(currentQuery);
+      }
       {% if thumb %} url += '&thumb={{ thumb|escape('js') }}'; {% endif %}
       {% if target %} url += '&target={{ target|escape('js') }}'; {% endif %}
 
-      $modal.load(url, function () {
-        var $new = $modal.find('input[name="search"]');
-        $new.focus();
-        var el = $new.get(0), len = $new.val().length;
-        if (el && el.setSelectionRange) el.setSelectionRange(len, len);
-        lastQuery = $new.val();
+      $.get(url, function(html) {
+          var $html = $(html);
+          
+          var $newImages = $html.find('#filemanager-images');
+          var $currentImages = $modal.find('#filemanager-images');
+          
+          if ($newImages.length && $currentImages.length) {
+              $currentImages.replaceWith($newImages);
+          } else {
+             var $newBody = $html.find('.modal-body');
+             if ($newBody.length) {
+          var $newPagination = $html.find('.pagination');
+          var $currentFooter = $modal.find('.modal-footer');
+          if ($currentFooter.length) {
+              $currentFooter.html($newPagination);
+          }
       });
     }, 350);
   });
@@ -309,11 +327,16 @@ $(document).on('keydown.fileman', function (e) {
     if (q) url += '&filter_name=' + encodeURIComponent(q);
     {% if thumb %} url += '&thumb={{ thumb|escape('js') }}'; {% endif %}
     {% if target %} url += '&target={{ target|escape('js') }}'; {% endif %}
-    $modal.load(url, function () {
-      var $new = $modal.find('input[name="search"]');
-      $new.focus();
-      var el = $new.get(0), len = $new.val().length;
-      if (el && el.setSelectionRange) el.setSelectionRange(len, len);
+    
+    $.get(url, function(html) {
+        var $html = $(html);
+        var $newImages = $html.find('#filemanager-images');
+        var $currentImages = $modal.find('#filemanager-images');
+        if ($newImages.length && $currentImages.length) {
+            $currentImages.replaceWith($newImages);
+        }
+         var $newPagination = $html.find('.pagination');
+         $modal.find('.modal-footer').html($newPagination);
     });
   });
 })();
