@@ -119,7 +119,7 @@ $('#button-search').on('click', function(e) {
 });
 //--></script>
 <script type="text/javascript"><!--
-$(document).on('click', '#button-upload', function() {
+$(document).off('click.fmUpload').on('click.fmUpload', '#button-upload', function() {
 	$('#form-upload').remove();
 
 	$('body').prepend('<form enctype="multipart/form-data" id="form-upload" style="display: none;"><input type="file" name="file[]" value="" multiple="multiple" /></form>');
@@ -161,7 +161,7 @@ $(document).on('click', '#button-upload', function() {
 	}).trigger('click');
 });
 
-$(document).on('click', '#button-folder', function() {
+$(document).off('click.fmFolder').on('click.fmFolder', '#button-folder', function() {
 	var $btn = $(this);
 	
 	$btn.popover({
@@ -183,7 +183,7 @@ $(document).on('click', '#button-folder', function() {
 	$btn.popover('show');
 });
 
-$(document).on('click', '#button-create', function() {
+$(document).off('click.fmCreate').on('click.fmCreate', '#button-create', function() {
 	$.ajax({
 		url: 'index.php?route=common/filemanager/folder&user_token={{ user_token }}&directory={{ directory }}',
 		type: 'post',
@@ -212,7 +212,7 @@ $(document).on('click', '#button-create', function() {
 	});
 });
 
-$(document).on('click', '#modal-image #button-delete', function(e) {
+$(document).off('click.fmDelete').on('click.fmDelete', '#modal-image #button-delete', function(e) {
 	if (confirm('{{ text_confirm }}')) {
 		$.ajax({
 			url: 'index.php?route=common/filemanager/delete&user_token={{ user_token }}',
