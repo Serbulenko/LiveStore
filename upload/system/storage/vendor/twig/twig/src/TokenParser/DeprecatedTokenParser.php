@@ -13,6 +13,7 @@ namespace Twig\TokenParser;
 
 use Twig\Error\SyntaxError;
 use Twig\Node\DeprecatedNode;
+use Twig\Node\Node;
 use Twig\Token;
 
 /**
@@ -25,11 +26,11 @@ use Twig\Token;
  *
  * @author Yonel Ceruto <yonelceruto@gmail.com>
  *
- * @final
+ * @internal
  */
-class DeprecatedTokenParser extends AbstractTokenParser
+final class DeprecatedTokenParser extends AbstractTokenParser
 {
-    public function parse(Token $token)
+    public function parse(Token $token): Node
     {
         $stream = $this->parser->getStream();
         $expressionParser = $this->parser->getExpressionParser();
@@ -58,10 +59,8 @@ class DeprecatedTokenParser extends AbstractTokenParser
         return $node;
     }
 
-    public function getTag()
+    public function getTag(): string
     {
         return 'deprecated';
     }
 }
-
-class_alias('Twig\TokenParser\DeprecatedTokenParser', 'Twig_TokenParser_Deprecated');

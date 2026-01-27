@@ -50,10 +50,5 @@
         "psr-4" : {
             "Twig\\Tests\\" : "tests/"
         }
-    },
-    "extra": {
-        "branch-alias": {
-            "dev-master": "2.13-dev"
-        }
     }
 }

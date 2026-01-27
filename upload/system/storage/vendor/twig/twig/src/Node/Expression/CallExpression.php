@@ -40,9 +40,8 @@ abstract class CallExpression extends AbstractExpression
                 } else {
                     $compiler->raw(\sprintf('$this->env->getRuntime(\'%s\')->%s', $callable[0], $callable[1]));
                 }
-            } elseif ($r instanceof \ReflectionMethod && $callable[0] instanceof ExtensionInterface) {
-                // For BC/FC with namespaced aliases
-                $class = (new \ReflectionClass(\get_class($callable[0])))->name;
+            } elseif (\is_array($callable) && $callable[0] instanceof ExtensionInterface) {
+                $class = \get_class($callable[0]);
                 if (!$compiler->getEnvironment()->hasExtension($class)) {
                     // Compile a non-optimized call to trigger a \Twig\Error\RuntimeError, which cannot be a compile-time error
                     $compiler->raw(\sprintf('$this->env->getExtension(\'%s\')', $class));
@@ -56,14 +55,10 @@ abstract class CallExpression extends AbstractExpression
             }
         }
 
-        $this->compileArguments($compiler, $isArray);
-
-        if ($closingParenthesis) {
-            $compiler->raw(')');
-        }
+        $this->compileArguments($compiler);
     }
 
-    protected function compileArguments(Compiler $compiler, $isArray = false)
+    protected function compileArguments(Compiler $compiler, $isArray = false): void
     {
         if (\func_num_args() >= 2) {
             trigger_deprecation('twig/twig', '3.11', 'Passing a second argument to "%s()" is deprecated.', __METHOD__);
@@ -167,7 +162,16 @@ abstract class CallExpression extends AbstractExpression
         $optionalArguments = [];
         $pos = 0;
         foreach ($callableParameters as $callableParameter) {
-            $names[] = $name = $this->normalizeName($callableParameter->name);
+            $name = $this->normalizeName($callableParameter->name);
+            if (\PHP_VERSION_ID >= 80000 && 'range' === $callable) {
+                if ('start' === $name) {
+                    $name = 'low';
+                } elseif ('end' === $name) {
+                    $name = 'high';
+                }
+            }
+
+            $names[] = $name;
 
             if (\array_key_exists($name, $parameters)) {
                 if (\array_key_exists($pos, $parameters)) {
@@ -243,7 +247,7 @@ abstract class CallExpression extends AbstractExpression
         return $arguments;
     }
 
-    protected function normalizeName($name)
+    protected function normalizeName(string $name): string
     {
         return strtolower(preg_replace(['/([A-Z]+)([A-Z][a-z])/', '/([a-z\d])([A-Z])/'], ['\\1_\\2', '\\1_\\2'], $name));
     }
@@ -298,5 +302,3 @@ abstract class CallExpression extends AbstractExpression
         return $this->reflector;
     }
 }
-
-class_alias('Twig\Node\Expression\CallExpression', 'Twig_Node_Expression_Call');

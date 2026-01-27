@@ -26,5 +26,3 @@ abstract class AbstractExpression extends Node
         return $this->hasAttribute('is_generator') && $this->getAttribute('is_generator');
     }
 }
-
-class_alias('Twig\Node\Expression\AbstractExpression', 'Twig_Node_Expression');

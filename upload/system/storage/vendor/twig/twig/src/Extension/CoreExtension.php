@@ -28,6 +28,8 @@ use Twig\Node\Expression\Binary\EqualBinary;
 use Twig\Node\Expression\Binary\FloorDivBinary;
 use Twig\Node\Expression\Binary\GreaterBinary;
 use Twig\Node\Expression\Binary\GreaterEqualBinary;
+use Twig\Node\Expression\Binary\HasEveryBinary;
+use Twig\Node\Expression\Binary\HasSomeBinary;
 use Twig\Node\Expression\Binary\InBinary;
 use Twig\Node\Expression\Binary\LessBinary;
 use Twig\Node\Expression\Binary\LessEqualBinary;
@@ -66,7 +68,6 @@ use Twig\TokenParser\DeprecatedTokenParser;
 use Twig\TokenParser\DoTokenParser;
 use Twig\TokenParser\EmbedTokenParser;
 use Twig\TokenParser\ExtendsTokenParser;
-use Twig\TokenParser\FilterTokenParser;
 use Twig\TokenParser\FlushTokenParser;
 use Twig\TokenParser\ForTokenParser;
 use Twig\TokenParser\FromTokenParser;
@@ -75,7 +76,6 @@ use Twig\TokenParser\ImportTokenParser;
 use Twig\TokenParser\IncludeTokenParser;
 use Twig\TokenParser\MacroTokenParser;
 use Twig\TokenParser\SetTokenParser;
-use Twig\TokenParser\SpacelessTokenParser;
 use Twig\TokenParser\UseTokenParser;
 use Twig\TokenParser\WithTokenParser;
 use Twig\TwigFilter;
@@ -101,38 +101,6 @@ final class CoreExtension extends AbstractExtension
     private $dateFormats = ['F j, Y H:i', '%d days'];
     private $numberFormat = [0, '.', ','];
     private $timezone = null;
-    private $escapers = [];
-
-    /**
-     * Defines a new escaper to be used via the escape filter.
-     *
-     * @param string   $strategy The strategy name that should be used as a strategy in the escape call
-     * @param callable $callable A valid PHP callable
-     *
-     * @deprecated since Twig 2.11, to be removed in 3.0; use the same method on EscaperExtension instead
-     */
-    public function setEscaper($strategy, callable $callable)
-    {
-        @trigger_error(sprintf('The "%s" method is deprecated since Twig 2.11; use "%s::setEscaper" instead.', __METHOD__, EscaperExtension::class), E_USER_DEPRECATED);
-
-        $this->escapers[$strategy] = $callable;
-    }
-
-    /**
-     * Gets all defined escapers.
-     *
-     * @return callable[] An array of escapers
-     *
-     * @deprecated since Twig 2.11, to be removed in 3.0; use the same method on EscaperExtension instead
-     */
-    public function getEscapers(/* $triggerDeprecation = true */)
-    {
-        if (0 === \func_num_args() || func_get_arg(0)) {
-            @trigger_error(sprintf('The "%s" method is deprecated since Twig 2.11; use "%s::getEscapers" instead.', __METHOD__, EscaperExtension::class), E_USER_DEPRECATED);
-        }
-
-        return $this->escapers;
-    }
 
     /**
      * Sets the default format to be used by the date filter.
@@ -207,7 +175,7 @@ final class CoreExtension extends AbstractExtension
         return $this->numberFormat;
     }
 
-    public function getTokenParsers()
+    public function getTokenParsers(): array
     {
         return [
             new ApplyTokenParser(),
@@ -217,12 +185,10 @@ final class CoreExtension extends AbstractExtension
             new IncludeTokenParser(),
             new BlockTokenParser(),
             new UseTokenParser(),
-            new FilterTokenParser(),
             new MacroTokenParser(),
             new ImportTokenParser(),
             new FromTokenParser(),
             new SetTokenParser(),
-            new SpacelessTokenParser(),
             new FlushTokenParser(),
             new DoTokenParser(),
             new EmbedTokenParser(),
@@ -231,7 +197,7 @@ final class CoreExtension extends AbstractExtension
         ];
     }
 
-    public function getFilters()
+    public function getFilters(): array
     {
         return [
             // formatting filters
@@ -284,7 +250,7 @@ final class CoreExtension extends AbstractExtension
         ];
     }
 
-    public function getFunctions()
+    public function getFunctions(): array
     {
         return [
             new TwigFunction('max', 'max'),
@@ -299,16 +265,16 @@ final class CoreExtension extends AbstractExtension
         ];
     }
 
-    public function getTests()
+    public function getTests(): array
     {
         return [
             new TwigTest('even', null, ['node_class' => EvenTest::class]),
             new TwigTest('odd', null, ['node_class' => OddTest::class]),
             new TwigTest('defined', null, ['node_class' => DefinedTest::class]),
-            new TwigTest('same as', null, ['node_class' => SameasTest::class]),
+            new TwigTest('same as', null, ['node_class' => SameasTest::class, 'one_mandatory_argument' => true]),
             new TwigTest('none', null, ['node_class' => NullTest::class]),
             new TwigTest('null', null, ['node_class' => NullTest::class]),
-            new TwigTest('divisible by', null, ['node_class' => DivisiblebyTest::class]),
+            new TwigTest('divisible by', null, ['node_class' => DivisiblebyTest::class, 'one_mandatory_argument' => true]),
             new TwigTest('constant', null, ['node_class' => ConstantTest::class]),
             new TwigTest('empty', [self::class, 'testEmpty']),
             new TwigTest('iterable', 'is_iterable'),
@@ -317,12 +283,12 @@ final class CoreExtension extends AbstractExtension
         ];
     }
 
-    public function getNodeVisitors()
+    public function getNodeVisitors(): array
     {
         return [new MacroAutoImportNodeVisitor()];
     }
 
-    public function getOperators()
+    public function getOperators(): array
     {
         return [
             [
@@ -348,6 +314,8 @@ final class CoreExtension extends AbstractExtension
                 'matches' => ['precedence' => 20, 'class' => MatchesBinary::class, 'associativity' => ExpressionParser::OPERATOR_LEFT],
                 'starts with' => ['precedence' => 20, 'class' => StartsWithBinary::class, 'associativity' => ExpressionParser::OPERATOR_LEFT],
                 'ends with' => ['precedence' => 20, 'class' => EndsWithBinary::class, 'associativity' => ExpressionParser::OPERATOR_LEFT],
+                'has some' => ['precedence' => 20, 'class' => HasSomeBinary::class, 'associativity' => ExpressionParser::OPERATOR_LEFT],
+                'has every' => ['precedence' => 20, 'class' => HasEveryBinary::class, 'associativity' => ExpressionParser::OPERATOR_LEFT],
                 '..' => ['precedence' => 25, 'class' => RangeBinary::class, 'associativity' => ExpressionParser::OPERATOR_LEFT],
                 '+' => ['precedence' => 30, 'class' => AddBinary::class, 'associativity' => ExpressionParser::OPERATOR_LEFT],
                 '-' => ['precedence' => 30, 'class' => SubBinary::class, 'associativity' => ExpressionParser::OPERATOR_LEFT],
@@ -1025,12 +993,8 @@ final class CoreExtension extends AbstractExtension
             if (\is_string($value) || \is_int($value) || \is_float($value)) {
                 return '' === $value || str_contains($compare, (string) $value);
             }
-        } else {
-            foreach ($compare as $item) {
-                if ($item == $value) {
-                    return true;
-                }
-            }
+
+            return false;
         }
 
         if (!is_iterable($compare)) {

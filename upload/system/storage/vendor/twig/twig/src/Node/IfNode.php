@@ -33,7 +33,7 @@ class IfNode extends Node
         parent::__construct($nodes, [], $lineno, $tag);
     }
 
-    public function compile(Compiler $compiler)
+    public function compile(Compiler $compiler): void
     {
         $compiler->addDebugInfo($this);
         for ($i = 0, $count = \count($this->getNode('tests')); $i < $count; $i += 2) {
@@ -52,7 +52,6 @@ class IfNode extends Node
                 ->subcompile($this->getNode('tests')->getNode((string) $i))
                 ->raw(") {\n")
                 ->indent()
-                ->subcompile($this->getNode('tests')->getNode($i + 1))
             ;
             // The node might not exists if the content is empty
             if ($this->getNode('tests')->hasNode((string) ($i + 1))) {
@@ -74,5 +73,3 @@ class IfNode extends Node
             ->write("}\n");
     }
 }
-
-class_alias('Twig\Node\IfNode', 'Twig_Node_If');

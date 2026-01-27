@@ -146,6 +146,8 @@ class ControllerMarketplaceModification extends Controller {
 				);
 
 				$this->model_setting_modification->editModification($modification_id, $data);
+
+                $this->refresh();
             }
 			
 			$this->response->redirect($this->url->link('marketplace/modification/edit', 'user_token=' . $this->session->data['user_token'] . '&modification_id=' . $this->request->get['modification_id'], true));
@@ -502,7 +504,6 @@ class ControllerMarketplaceModification extends Controller {
 			$maintenance = $this->config->get('config_maintenance');
 
 			$this->load->model('setting/setting');
-			$this->load->model('design/theme');
 
 			$this->model_setting_setting->editSettingValue('config', 'config_maintenance', true);
 
@@ -648,19 +649,10 @@ class ControllerMarketplaceModification extends Controller {
                                         $route = substr(mb_strstr($key, 'template'), 9, -5);
 
                                         $theme_info = $this->model_design_theme->getTheme($store_id, $theme, $route);
-										
-										//https://liveopencart.ru/alexdw
 
                                         if ($theme_info) {
                                             $content = html_entity_decode($theme_info['code'], ENT_QUOTES, 'UTF-8');
-                                        } else if (stristr($key, '/', true) === basename(DIR_CATALOG) && stristr($key, '.twig') != FALSE) {
-											$fix_theme = basename(stristr($file, '/template/', true));
-											$fix_route = stristr(substr(stristr($key, '/template/'), 10 ), '.twig', true);
-											$fix_store_id = (int)$this->config->get('config_store_id');
-
-											$theme_info = $this->model_design_theme->getTheme($fix_store_id, $fix_theme, $fix_route);
-											$content = $theme_info ? html_entity_decode($theme_info['code']) : file_get_contents($file);
-										} else {
+                                        } else {
                                             $content = file_get_contents($file);
                                         }
 

@@ -28,7 +28,7 @@ class EnterProfileNode extends Node
         parent::__construct([], ['extension_name' => $extensionName, 'name' => $name, 'type' => $type, 'var_name' => $varName]);
     }
 
-    public function compile(Compiler $compiler)
+    public function compile(Compiler $compiler): void
     {
         $compiler
             ->write(\sprintf('$%s = $this->extensions[', $this->getAttribute('var_name')))
@@ -42,5 +42,3 @@ class EnterProfileNode extends Node
         ;
     }
 }
-
-class_alias('Twig\Profiler\Node\EnterProfileNode', 'Twig_Profiler_Node_EnterProfile');

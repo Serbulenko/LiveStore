@@ -44,7 +44,7 @@ class SetNode extends Node implements NodeCaptureInterface
         parent::__construct(['names' => $names, 'values' => $values], ['capture' => $capture, 'safe' => $safe], $lineno, $tag);
     }
 
-    public function compile(Compiler $compiler)
+    public function compile(Compiler $compiler): void
     {
         $compiler->addDebugInfo($this);
 
@@ -94,5 +94,3 @@ class SetNode extends Node implements NodeCaptureInterface
         $compiler->raw("\n");
     }
 }
-
-class_alias('Twig\Node\SetNode', 'Twig_Node_Set');

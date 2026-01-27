@@ -32,7 +32,7 @@ class WithNode extends Node
         parent::__construct($nodes, ['only' => $only], $lineno, $tag);
     }
 
-    public function compile(Compiler $compiler)
+    public function compile(Compiler $compiler): void
     {
         $compiler->addDebugInfo($this);
 
@@ -58,9 +58,7 @@ class WithNode extends Node
             ;
 
             if ($this->getAttribute('only')) {
-                $compiler->write("\$context = ['_parent' => \$context];\n");
-            } else {
-                $compiler->write("\$context['_parent'] = \$context;\n");
+                $compiler->write("\$context = [];\n");
             }
 
             $compiler->write(\sprintf("\$context = \$this->env->mergeGlobals(array_merge(\$context, \$%s));\n", $varsName));
@@ -72,5 +70,3 @@ class WithNode extends Node
         ;
     }
 }
-
-class_alias('Twig\Node\WithNode', 'Twig_Node_With');

@@ -38,7 +38,7 @@ class CheckSecurityNode extends Node
         parent::__construct();
     }
 
-    public function compile(Compiler $compiler)
+    public function compile(Compiler $compiler): void
     {
         $compiler
             ->write("\n")
@@ -78,8 +78,8 @@ class CheckSecurityNode extends Node
             ->write("throw \$e;\n")
             ->outdent()
             ->write("}\n\n")
+            ->outdent()
+            ->write("}\n")
         ;
     }
 }
-
-class_alias('Twig\Node\CheckSecurityNode', 'Twig_Node_CheckSecurity');

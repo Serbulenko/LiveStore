@@ -33,22 +33,22 @@ final class SandboxExtension extends AbstractExtension
         $this->sourcePolicy = $sourcePolicy;
     }
 
-    public function getTokenParsers()
+    public function getTokenParsers(): array
     {
         return [new SandboxTokenParser()];
     }
 
-    public function getNodeVisitors()
+    public function getNodeVisitors(): array
     {
         return [new SandboxNodeVisitor()];
     }
 
-    public function enableSandbox()
+    public function enableSandbox(): void
     {
         $this->sandboxed = true;
     }
 
-    public function disableSandbox()
+    public function disableSandbox(): void
     {
         $this->sandboxed = false;
     }
@@ -58,7 +58,7 @@ final class SandboxExtension extends AbstractExtension
         return $this->sandboxedGlobally || $this->sandboxed || $this->isSourceSandboxed($source);
     }
 
-    public function isSandboxedGlobally()
+    public function isSandboxedGlobally(): bool
     {
         return $this->sandboxedGlobally;
     }
@@ -77,7 +77,7 @@ final class SandboxExtension extends AbstractExtension
         $this->policy = $policy;
     }
 
-    public function getSecurityPolicy()
+    public function getSecurityPolicy(): SecurityPolicyInterface
     {
         return $this->policy;
     }
@@ -107,7 +107,7 @@ final class SandboxExtension extends AbstractExtension
     {
         if ($this->isSandboxed($source)) {
             try {
-                $this->policy->checkPropertyAllowed($obj, $method);
+                $this->policy->checkPropertyAllowed($obj, $property);
             } catch (SecurityNotAllowedPropertyError $e) {
                 $e->setSourceContext($source);
                 $e->setTemplateLine($lineno);
@@ -180,5 +180,3 @@ final class SandboxExtension extends AbstractExtension
         }
     }
 }
-
-class_alias('Twig\Extension\SandboxExtension', 'Twig_Extension_Sandbox');

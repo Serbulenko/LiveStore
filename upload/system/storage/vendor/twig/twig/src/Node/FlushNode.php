@@ -27,7 +27,7 @@ class FlushNode extends Node
         parent::__construct([], [], $lineno, $tag);
     }
 
-    public function compile(Compiler $compiler)
+    public function compile(Compiler $compiler): void
     {
         $compiler
             ->addDebugInfo($this)
@@ -35,5 +35,3 @@ class FlushNode extends Node
         ;
     }
 }
-
-class_alias('Twig\Node\FlushNode', 'Twig_Node_Flush');
