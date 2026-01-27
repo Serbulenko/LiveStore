@@ -125,7 +125,7 @@ class ControllerExtensionDashboardChartByCountryAndRegion extends Controller {
 		
 		$results = $this->model_extension_dashboard_chart_by_country_and_region->getTotalOrdersByCountry();
 		
-		if($results) {
+		if ($results) {
 			foreach ($results as $key => $result) {
 				$json['data'][] = [
 					'country_id'=> $result['country_id'],
