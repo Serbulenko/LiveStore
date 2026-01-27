@@ -260,18 +260,8 @@ class ExpressionParser
                     break;
                 } elseif (isset($this->unaryOperators[$token->getValue()])) {
                     $class = $this->unaryOperators[$token->getValue()]['class'];
-<<<<<<< HEAD
-
-                    $ref = new \ReflectionClass($class);
-                    if (!(\in_array($ref->getName(), [NegUnary::class, PosUnary::class, 'Twig_Node_Expression_Unary_Neg', 'Twig_Node_Expression_Unary_Pos'])
-                        || $ref->isSubclassOf(NegUnary::class) || $ref->isSubclassOf(PosUnary::class)
-                        || $ref->isSubclassOf('Twig_Node_Expression_Unary_Neg') || $ref->isSubclassOf('Twig_Node_Expression_Unary_Pos'))
-                    ) {
-                        throw new SyntaxError(sprintf('Unexpected unary operator "%s".', $token->getValue()), $token->getLine(), $this->parser->getStream()->getSourceContext());
-=======
                     if (!\in_array($class, [NegUnary::class, PosUnary::class])) {
                         throw new SyntaxError(\sprintf('Unexpected unary operator "%s".', $token->getValue()), $token->getLine(), $this->parser->getStream()->getSourceContext());
->>>>>>> 3.0.4.2
                     }
 
                     $this->parser->getStream()->next();
@@ -522,11 +512,7 @@ class ExpressionParser
                     }
                 }
             } else {
-<<<<<<< HEAD
-                throw new SyntaxError('Expected name or number.', $lineno, $stream->getSourceContext());
-=======
                 throw new SyntaxError(\sprintf('Expected name or number, got value "%s" of type %s.', $token->getValue(), Token::typeToEnglish($token->getType())), $lineno, $stream->getSourceContext());
->>>>>>> 3.0.4.2
             }
 
             if ($node instanceof NameExpression && null !== $this->parser->getImportedSymbol('template', $node->getAttribute('name'))) {
@@ -647,11 +633,7 @@ class ExpressionParser
                     $value = $this->parsePrimaryExpression();
 
                     if (!$this->checkConstantExpression($value)) {
-<<<<<<< HEAD
-                        throw new SyntaxError(sprintf('A default value for an argument must be a constant (a boolean, a string, a number, or an array).'), $token->getLine(), $stream->getSourceContext());
-=======
                         throw new SyntaxError('A default value for an argument must be a constant (a boolean, a string, a number, a sequence, or a mapping).', $token->getLine(), $stream->getSourceContext());
->>>>>>> 3.0.4.2
                     }
                 } else {
                     $value = $this->parseExpression(0, $allowArrow);
@@ -772,23 +754,13 @@ class ExpressionParser
             $stream = $this->parser->getStream();
             $message = \sprintf('Twig Test "%s" is deprecated', $test->getName());
 
-<<<<<<< HEAD
-            if (!\is_bool($test->getDeprecatedVersion())) {
-                $message .= sprintf(' since version %s', $test->getDeprecatedVersion());
-            }
-=======
->>>>>>> 3.0.4.2
             if ($test->getAlternative()) {
                 $message .= \sprintf('. Use "%s" instead', $test->getAlternative());
             }
             $src = $stream->getSourceContext();
             $message .= \sprintf(' in %s at line %d.', $src->getPath() ?: $src->getName(), $stream->getCurrent()->getLine());
 
-<<<<<<< HEAD
-            @trigger_error($message, E_USER_DEPRECATED);
-=======
             trigger_deprecation($test->getDeprecatingPackage(), $test->getDeprecatedVersion(), $message);
->>>>>>> 3.0.4.2
         }
 
         return $test->getNodeClass();
@@ -796,38 +768,22 @@ class ExpressionParser
 
     private function getFunctionNodeClass(string $name, int $line): string
     {
-<<<<<<< HEAD
-        if (false === $function = $this->env->getFunction($name)) {
-            $e = new SyntaxError(sprintf('Unknown "%s" function.', $name), $line, $this->parser->getStream()->getSourceContext());
-=======
         if (!$function = $this->env->getFunction($name)) {
             $e = new SyntaxError(\sprintf('Unknown "%s" function.', $name), $line, $this->parser->getStream()->getSourceContext());
->>>>>>> 3.0.4.2
             $e->addSuggestions($name, array_keys($this->env->getFunctions()));
 
             throw $e;
         }
 
         if ($function->isDeprecated()) {
-<<<<<<< HEAD
-            $message = sprintf('Twig Function "%s" is deprecated', $function->getName());
-            if (!\is_bool($function->getDeprecatedVersion())) {
-                $message .= sprintf(' since version %s', $function->getDeprecatedVersion());
-            }
-=======
             $message = \sprintf('Twig Function "%s" is deprecated', $function->getName());
->>>>>>> 3.0.4.2
             if ($function->getAlternative()) {
                 $message .= \sprintf('. Use "%s" instead', $function->getAlternative());
             }
             $src = $this->parser->getStream()->getSourceContext();
             $message .= \sprintf(' in %s at line %d.', $src->getPath() ?: $src->getName(), $line);
 
-<<<<<<< HEAD
-            @trigger_error($message, E_USER_DEPRECATED);
-=======
             trigger_deprecation($function->getDeprecatingPackage(), $function->getDeprecatedVersion(), $message);
->>>>>>> 3.0.4.2
         }
 
         return $function->getNodeClass();
@@ -835,38 +791,22 @@ class ExpressionParser
 
     private function getFilterNodeClass(string $name, int $line): string
     {
-<<<<<<< HEAD
-        if (false === $filter = $this->env->getFilter($name)) {
-            $e = new SyntaxError(sprintf('Unknown "%s" filter.', $name), $line, $this->parser->getStream()->getSourceContext());
-=======
         if (!$filter = $this->env->getFilter($name)) {
             $e = new SyntaxError(\sprintf('Unknown "%s" filter.', $name), $line, $this->parser->getStream()->getSourceContext());
->>>>>>> 3.0.4.2
             $e->addSuggestions($name, array_keys($this->env->getFilters()));
 
             throw $e;
         }
 
         if ($filter->isDeprecated()) {
-<<<<<<< HEAD
-            $message = sprintf('Twig Filter "%s" is deprecated', $filter->getName());
-            if (!\is_bool($filter->getDeprecatedVersion())) {
-                $message .= sprintf(' since version %s', $filter->getDeprecatedVersion());
-            }
-=======
             $message = \sprintf('Twig Filter "%s" is deprecated', $filter->getName());
->>>>>>> 3.0.4.2
             if ($filter->getAlternative()) {
                 $message .= \sprintf('. Use "%s" instead', $filter->getAlternative());
             }
             $src = $this->parser->getStream()->getSourceContext();
             $message .= \sprintf(' in %s at line %d.', $src->getPath() ?: $src->getName(), $line);
 
-<<<<<<< HEAD
-            @trigger_error($message, E_USER_DEPRECATED);
-=======
             trigger_deprecation($filter->getDeprecatingPackage(), $filter->getDeprecatedVersion(), $message);
->>>>>>> 3.0.4.2
         }
 
         return $filter->getNodeClass();

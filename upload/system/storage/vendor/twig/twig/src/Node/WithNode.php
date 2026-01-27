@@ -36,13 +36,10 @@ class WithNode extends Node
     {
         $compiler->addDebugInfo($this);
 
-<<<<<<< HEAD
-=======
         $parentContextName = $compiler->getVarName();
 
         $compiler->write(\sprintf("\$%s = \$context;\n", $parentContextName));
 
->>>>>>> 3.0.4.2
         if ($this->hasNode('variables')) {
             $node = $this->getNode('variables');
             $varsName = $compiler->getVarName();
@@ -66,22 +63,12 @@ class WithNode extends Node
                 $compiler->write("\$context['_parent'] = \$context;\n");
             }
 
-<<<<<<< HEAD
-            $compiler->write(sprintf("\$context = \$this->env->mergeGlobals(array_merge(\$context, \$%s));\n", $varsName));
-        } else {
-            $compiler->write("\$context['_parent'] = \$context;\n");
-=======
             $compiler->write(\sprintf("\$context = \$this->env->mergeGlobals(array_merge(\$context, \$%s));\n", $varsName));
->>>>>>> 3.0.4.2
         }
 
         $compiler
             ->subcompile($this->getNode('body'))
-<<<<<<< HEAD
-            ->write("\$context = \$context['_parent'];\n")
-=======
             ->write(\sprintf("\$context = \$%s;\n", $parentContextName))
->>>>>>> 3.0.4.2
         ;
     }
 }

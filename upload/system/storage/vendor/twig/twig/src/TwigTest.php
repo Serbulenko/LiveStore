@@ -30,15 +30,7 @@ class TwigTest
     private $arguments = [];
 
     /**
-<<<<<<< HEAD
-     * Creates a template test.
-     *
-     * @param string        $name     Name of this test
-     * @param callable|null $callable A callable implementing the test. If null, you need to overwrite the "node_class" option to customize compilation.
-     * @param array         $options  Options array
-=======
      * @param callable|array{class-string, string}|null $callable A callable implementing the test. If null, you need to overwrite the "node_class" option to customize compilation.
->>>>>>> 3.0.4.2
      */
     public function __construct(string $name, $callable = null, array $options = [])
     {
@@ -97,16 +89,12 @@ class TwigTest
         return (bool) $this->options['deprecated'];
     }
 
-<<<<<<< HEAD
-    public function getDeprecatedVersion()
-=======
     public function getDeprecatingPackage(): string
     {
         return $this->options['deprecating_package'];
     }
 
     public function getDeprecatedVersion(): string
->>>>>>> 3.0.4.2
     {
         return $this->options['deprecated'];
     }

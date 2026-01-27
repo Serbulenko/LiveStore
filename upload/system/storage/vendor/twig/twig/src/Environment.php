@@ -41,21 +41,12 @@ use Twig\TokenParser\TokenParserInterface;
  */
 class Environment
 {
-<<<<<<< HEAD
-    const VERSION = '2.13.0';
-    const VERSION_ID = 21300;
-    const MAJOR_VERSION = 2;
-    const MINOR_VERSION = 13;
-    const RELEASE_VERSION = 0;
-    const EXTRA_VERSION = '';
-=======
     public const VERSION = '3.11.3';
     public const VERSION_ID = 301103;
     public const MAJOR_VERSION = 4;
     public const MINOR_VERSION = 11;
     public const RELEASE_VERSION = 3;
     public const EXTRA_VERSION = '';
->>>>>>> 3.0.4.2
 
     private $charset;
     private $loader;
@@ -159,38 +150,11 @@ class Environment
     }
 
     /**
-<<<<<<< HEAD
-     * Gets the base template class for compiled templates.
-     *
-     * @return string The base template class name
-     */
-    public function getBaseTemplateClass()
-    {
-        if (1 > \func_num_args() || \func_get_arg(0)) {
-            @trigger_error('The '.__METHOD__.' is deprecated since Twig 2.7.0.', E_USER_DEPRECATED);
-        }
-
-        return $this->baseTemplateClass;
-    }
-
-    /**
-     * Sets the base template class for compiled templates.
-     *
-     * @param string $class The base template class name
-     */
-    public function setBaseTemplateClass($class)
-    {
-        @trigger_error('The '.__METHOD__.' is deprecated since Twig 2.7.0.', E_USER_DEPRECATED);
-
-        $this->baseTemplateClass = $class;
-        $this->updateOptionsHash();
-=======
      * @internal
      */
     public function useYield(): bool
     {
         return $this->useYield;
->>>>>>> 3.0.4.2
     }
 
     /**
@@ -329,19 +293,11 @@ class Environment
      *
      * @internal
      */
-<<<<<<< HEAD
-    public function getTemplateClass($name, $index = null)
-    {
-        $key = $this->getLoader()->getCacheKey($name).$this->optionsHash;
-
-        return $this->templateClassPrefix.hash('sha256', $key).(null === $index ? '' : '___'.$index);
-=======
     public function getTemplateClass(string $name, ?int $index = null): string
     {
         $key = $this->getLoader()->getCacheKey($name).$this->optionsHash;
 
         return '__TwigTemplate_'.hash(\PHP_VERSION_ID < 80100 ? 'sha256' : 'xxh128', $key).(null === $index ? '' : '___'.$index);
->>>>>>> 3.0.4.2
     }
 
     /**
@@ -424,19 +380,7 @@ class Environment
      *
      * @internal
      */
-<<<<<<< HEAD
-    public function loadTemplate($name, $index = null)
-    {
-        return $this->loadClass($this->getTemplateClass($name), $name, $index);
-    }
-
-    /**
-     * @internal
-     */
-    public function loadClass($cls, $name, $index = null)
-=======
     public function loadTemplate(string $cls, string $name, ?int $index = null): Template
->>>>>>> 3.0.4.2
     {
         $mainCls = $cls;
         if (null !== $index) {
@@ -494,11 +438,7 @@ class Environment
      * @throws LoaderError When the template cannot be found
      * @throws SyntaxError When an error occurred during compilation
      */
-<<<<<<< HEAD
-    public function createTemplate($template, string $name = null)
-=======
     public function createTemplate(string $template, ?string $name = null): TemplateWrapper
->>>>>>> 3.0.4.2
     {
         $hash = hash('sha256', $template, false);
         if (null !== $name) {
@@ -680,11 +620,7 @@ class Environment
      */
     public function setCharset($charset)
     {
-<<<<<<< HEAD
-        if ('UTF8' === $charset = strtoupper($charset)) {
-=======
         if ('UTF8' === $charset = strtoupper($charset ?: '')) {
->>>>>>> 3.0.4.2
             // iconv on Windows requires "UTF-8" instead of "UTF8"
             $charset = 'UTF-8';
         }

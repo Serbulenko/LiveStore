@@ -185,14 +185,6 @@ abstract class IntegrationTestCase extends TestCase
                 $twig->addFunction($function);
             }
 
-<<<<<<< HEAD
-            // avoid using the same PHP class name for different cases
-            $p = new \ReflectionProperty($twig, 'templateClassPrefix');
-            $p->setAccessible(true);
-            $p->setValue($twig, '__TwigTemplate_'.hash('sha256', uniqid(mt_rand(), true), false).'_');
-
-=======
->>>>>>> 3.0.4.2
             $deprecations = [];
             try {
                 $prevHandler = set_error_handler(function ($type, $msg, $file, $line, $context = []) use (&$deprecations, &$prevHandler) {

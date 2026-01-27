@@ -63,8 +63,6 @@ class Lexer
             'whitespace_line_chars' => ' \t\0\x0B',
             'interpolation' => ['#{', '}'],
         ], $options);
-<<<<<<< HEAD
-=======
     }
 
     private function initialize()
@@ -72,7 +70,6 @@ class Lexer
         if ($this->isInitialized) {
             return;
         }
->>>>>>> 3.0.4.2
 
         // when PHP 7.3 is the min version, we will be able to remove the '#' part in preg_quote as it's part of the default
         $this->regexes = [

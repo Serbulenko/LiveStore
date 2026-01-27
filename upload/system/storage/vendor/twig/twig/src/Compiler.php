@@ -75,9 +75,6 @@ class Compiler
         $this->indentation = $indentation;
         $this->varNameSalt = 0;
 
-<<<<<<< HEAD
-        $node->compile($this);
-=======
         return $this;
     }
 
@@ -88,7 +85,6 @@ class Compiler
     {
         $this->reset($indentation);
         $this->didUseEchoStack[] = $this->didUseEcho;
->>>>>>> 3.0.4.2
 
         try {
             $this->didUseEcho = false;
@@ -277,9 +273,6 @@ class Compiler
 
     public function getVarName()
     {
-<<<<<<< HEAD
-        return sprintf('__internal_%s', hash('sha256', __METHOD__.$this->varNameSalt++));
-=======
         return \sprintf('__internal_compile_%d', $this->varNameSalt++);
     }
 
@@ -290,7 +283,6 @@ class Compiler
         }
 
         $this->didUseEcho = preg_match('/^\s*+(echo|print)\b/', $string, $m) ? $m[1] : false;
->>>>>>> 3.0.4.2
     }
 }
 

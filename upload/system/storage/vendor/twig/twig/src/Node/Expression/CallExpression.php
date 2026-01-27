@@ -25,17 +25,6 @@ abstract class CallExpression extends AbstractExpression
     {
         $callable = $this->getAttribute('callable');
 
-<<<<<<< HEAD
-        $closingParenthesis = false;
-        $isArray = false;
-        if (\is_string($callable) && false === strpos($callable, '::')) {
-            $compiler->raw($callable);
-        } else {
-            list($r, $callable) = $this->reflectCallable($callable);
-            if ($r instanceof \ReflectionMethod && \is_string($callable[0])) {
-                if ($r->isStatic()) {
-                    $compiler->raw(sprintf('%s::%s', $callable[0], $callable[1]));
-=======
         if (\is_string($callable) && !str_contains($callable, '::')) {
             $compiler->raw($callable);
         } else {
@@ -48,7 +37,6 @@ abstract class CallExpression extends AbstractExpression
             } elseif (\is_array($callable) && \is_string($callable[0])) {
                 if (!$r instanceof \ReflectionMethod || $r->isStatic()) {
                     $compiler->raw(\sprintf('%s::%s', $callable[0], $callable[1]));
->>>>>>> 3.0.4.2
                 } else {
                     $compiler->raw(\sprintf('$this->env->getRuntime(\'%s\')->%s', $callable[0], $callable[1]));
                 }
@@ -64,13 +52,7 @@ abstract class CallExpression extends AbstractExpression
 
                 $compiler->raw(\sprintf('->%s', $callable[1]));
             } else {
-<<<<<<< HEAD
-                $closingParenthesis = true;
-                $isArray = true;
-                $compiler->raw(sprintf('call_user_func_array($this->env->get%s(\'%s\')->getCallable(), ', ucfirst($this->getAttribute('type')), $this->getAttribute('name')));
-=======
                 $compiler->raw(\sprintf('$this->env->get%s(\'%s\')->getCallable()', ucfirst($this->getAttribute('type')), $this->getAttribute('name')));
->>>>>>> 3.0.4.2
             }
         }
 
@@ -268,16 +250,9 @@ abstract class CallExpression extends AbstractExpression
 
     private function getCallableParameters($callable, bool $isVariadic): array
     {
-<<<<<<< HEAD
-        list($r) = $this->reflectCallable($callable);
-        if (null === $r) {
-            return [[], false];
-        }
-=======
         $rc = $this->reflectCallable($callable);
         $r = $rc->getReflector();
         $callableName = $rc->getName();
->>>>>>> 3.0.4.2
 
         $parameters = $r->getParameters();
         if ($this->hasNode('node')) {
@@ -307,16 +282,7 @@ abstract class CallExpression extends AbstractExpression
                 array_pop($parameters);
                 $isPhpVariadic = true;
             } else {
-<<<<<<< HEAD
-                $callableName = $r->name;
-                if ($r instanceof \ReflectionMethod) {
-                    $callableName = $r->getDeclaringClass()->name.'::'.$callableName;
-                }
-
-                throw new \LogicException(sprintf('The last parameter of "%s" for %s "%s" must be an array with default value, eg. "array $arg = []".', $callableName, $this->getAttribute('type'), $this->getAttribute('name')));
-=======
                 throw new \LogicException(\sprintf('The last parameter of "%s" for %s "%s" must be an array with default value, eg. "array $arg = []".', $callableName, $this->getAttribute('type'), $this->getAttribute('name')));
->>>>>>> 3.0.4.2
             }
         }
 
@@ -329,34 +295,7 @@ abstract class CallExpression extends AbstractExpression
             $this->reflector = new ReflectionCallable($callable, $this->getAttribute('type'), $this->getAttribute('name'));
         }
 
-<<<<<<< HEAD
-        if (\is_array($callable)) {
-            if (!method_exists($callable[0], $callable[1])) {
-                // __call()
-                return [null, []];
-            }
-            $r = new \ReflectionMethod($callable[0], $callable[1]);
-        } elseif (\is_object($callable) && !$callable instanceof \Closure) {
-            $r = new \ReflectionObject($callable);
-            $r = $r->getMethod('__invoke');
-            $callable = [$callable, '__invoke'];
-        } elseif (\is_string($callable) && false !== $pos = strpos($callable, '::')) {
-            $class = substr($callable, 0, $pos);
-            $method = substr($callable, $pos + 2);
-            if (!method_exists($class, $method)) {
-                // __staticCall()
-                return [null, []];
-            }
-            $r = new \ReflectionMethod($callable);
-            $callable = [$class, $method];
-        } else {
-            $r = new \ReflectionFunction($callable);
-        }
-
-        return $this->reflector = [$r, $callable];
-=======
         return $this->reflector;
->>>>>>> 3.0.4.2
     }
 }
 

@@ -44,11 +44,6 @@ class ModelToolBackup extends Model {
 					$values = '';
 
 					foreach (array_values($result) as $value) {
-<<<<<<< HEAD
-						$value = str_replace(array('\\', "\x00", "\n", "\r", "\x1a", '\'', '"'), array('\\\\', '\0', '\n', '\r', '\Z', '\\\'', '\"'), $value);
-
-						$values .= '\'' . $value . '\', ';
-=======
 						if ($value !== null) {
 							$value = str_replace(array("\x00", "\x0a", "\x0d", "\x1a"), array('\0', '\n', '\r', '\Z'), $value);
 							$value = str_replace(array("\n", "\r", "\t"), array('\n', '\r', '\t'), $value);
@@ -62,7 +57,6 @@ class ModelToolBackup extends Model {
 						} else {
 							$values .= 'NULL, ';
 						}
->>>>>>> 3.0.4.2
 					}
 
 					$output .= 'INSERT INTO `' . $table . '` (' . preg_replace('/, $/', '', $fields) . ') VALUES (' . preg_replace('/, $/', '', $values) . ');' . "\n";

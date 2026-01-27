@@ -148,16 +148,12 @@ class Node implements \Countable, \IteratorAggregate
         $this->attributes[$name] = $value;
     }
 
-<<<<<<< HEAD
-    public function removeAttribute($name)
-=======
     public function deprecateAttribute(string $name, NameDeprecation $dep): void
     {
         $this->attributeNameDeprecations[$name] = $dep;
     }
 
     public function removeAttribute(string $name): void
->>>>>>> 3.0.4.2
     {
         unset($this->attributes[$name]);
     }
@@ -215,8 +211,6 @@ class Node implements \Countable, \IteratorAggregate
         unset($this->nodes[$name]);
     }
 
-<<<<<<< HEAD
-=======
     public function deprecateNode(string $name, NameDeprecation $dep): void
     {
         $this->nodeNameDeprecations[$name] = $dep;
@@ -226,7 +220,6 @@ class Node implements \Countable, \IteratorAggregate
      * @return int
      */
     #[\ReturnTypeWillChange]
->>>>>>> 3.0.4.2
     public function count()
     {
         return \count($this->nodes);

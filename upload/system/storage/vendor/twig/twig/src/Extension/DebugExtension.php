@@ -34,13 +34,6 @@ final class DebugExtension extends AbstractExtension
             new TwigFunction('dump', [self::class, 'dump'], ['is_safe' => $isDumpOutputHtmlSafe ? ['html'] : [], 'needs_context' => true, 'needs_environment' => true, 'is_variadic' => true]),
         ];
     }
-<<<<<<< HEAD
-}
-
-class_alias('Twig\Extension\DebugExtension', 'Twig_Extension_Debug');
-}
-=======
->>>>>>> 3.0.4.2
 
     /**
      * @internal

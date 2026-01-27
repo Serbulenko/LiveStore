@@ -41,12 +41,6 @@ class CheckSecurityNode extends Node
     public function compile(Compiler $compiler)
     {
         $compiler
-<<<<<<< HEAD
-            ->write("\$this->sandbox = \$this->env->getExtension('\Twig\Extension\SandboxExtension');\n")
-            ->write('$tags = ')->repr(array_filter($tags))->raw(";\n")
-            ->write('$filters = ')->repr(array_filter($filters))->raw(";\n")
-            ->write('$functions = ')->repr(array_filter($functions))->raw(";\n\n")
-=======
             ->write("\n")
             ->write("public function checkSecurity()\n")
             ->write("{\n")
@@ -54,7 +48,6 @@ class CheckSecurityNode extends Node
             ->write('static $tags = ')->repr(array_filter($this->usedTags))->raw(";\n")
             ->write('static $filters = ')->repr(array_filter($this->usedFilters))->raw(";\n")
             ->write('static $functions = ')->repr(array_filter($this->usedFunctions))->raw(";\n\n")
->>>>>>> 3.0.4.2
             ->write("try {\n")
             ->indent()
             ->write("\$this->sandbox->checkSecurity(\n")

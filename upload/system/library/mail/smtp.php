@@ -126,9 +126,6 @@ class Smtp {
 
 				$this->handleReply($handle, 220, 'SMTP error: STARTTLS not accepted from server!');
 
-<<<<<<< HEAD
-				stream_socket_enable_crypto($handle, true, STREAM_CRYPTO_METHOD_TLS_CLIENT);
-=======
 				if (stream_socket_enable_crypto($handle, true, STREAM_CRYPTO_METHOD_TLS_CLIENT) !== true) {
 					return $this->error('SMTP error: TLS could not be established!');
 				}
@@ -136,7 +133,6 @@ class Smtp {
 				fputs($handle, 'EHLO ' . getenv('SERVER_NAME') . "\r\n");
 
 				$this->handleReply($handle, 250, 'SMTP error: EHLO not accepted from server!');
->>>>>>> 3.0.4.2
 			}
 
 			if (!empty($this->smtp_username) && !empty($this->smtp_password)) {
@@ -254,13 +250,9 @@ class Smtp {
 
 		return $reply;
 	}
-<<<<<<< HEAD
-}
-=======
 	
 	private function error($text) {
 		return user_error($text, E_USER_WARNING);
 	}
 }
 
->>>>>>> 3.0.4.2

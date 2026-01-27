@@ -67,11 +67,7 @@ class FilesystemCache implements CacheInterface
 
             if (self::FORCE_BYTECODE_INVALIDATION == ($this->options & self::FORCE_BYTECODE_INVALIDATION)) {
                 // Compile cached file into bytecode cache
-<<<<<<< HEAD
-                if (\function_exists('opcache_invalidate') && filter_var(ini_get('opcache.enable'), FILTER_VALIDATE_BOOLEAN)) {
-=======
                 if (\function_exists('opcache_invalidate') && filter_var(\ini_get('opcache.enable'), \FILTER_VALIDATE_BOOLEAN)) {
->>>>>>> 3.0.4.2
                     @opcache_invalidate($key, true);
                 } elseif (\function_exists('apc_compile_file')) {
                     apc_compile_file($key);

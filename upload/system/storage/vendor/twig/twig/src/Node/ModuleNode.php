@@ -29,12 +29,8 @@ use Twig\Source;
  *
  * @final since Twig 2.4.0
  */
-<<<<<<< HEAD
-class ModuleNode extends Node
-=======
 #[YieldReady]
 final class ModuleNode extends Node
->>>>>>> 3.0.4.2
 {
     public function __construct(Node $body, ?AbstractExpression $parent, Node $blocks, Node $macros, Node $traits, $embeddedTemplates, Source $source)
     {

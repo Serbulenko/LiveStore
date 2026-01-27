@@ -37,20 +37,11 @@ use Twig\Node\TextNode;
  */
 final class OptimizerNodeVisitor extends AbstractNodeVisitor
 {
-<<<<<<< HEAD
-    const OPTIMIZE_ALL = -1;
-    const OPTIMIZE_NONE = 0;
-    const OPTIMIZE_FOR = 2;
-    const OPTIMIZE_RAW_FILTER = 4;
-    // obsolete, does not do anything
-    const OPTIMIZE_VAR_ACCESS = 8;
-=======
     public const OPTIMIZE_ALL = -1;
     public const OPTIMIZE_NONE = 0;
     public const OPTIMIZE_FOR = 2;
     public const OPTIMIZE_RAW_FILTER = 4;
     public const OPTIMIZE_TEXT_NODES = 8;
->>>>>>> 3.0.4.2
 
     private $loops = [];
     private $loopsTargets = [];
@@ -61,17 +52,12 @@ final class OptimizerNodeVisitor extends AbstractNodeVisitor
      */
     public function __construct(int $optimizers = -1)
     {
-<<<<<<< HEAD
-        if (!\is_int($optimizers) || $optimizers > (self::OPTIMIZE_FOR | self::OPTIMIZE_RAW_FILTER | self::OPTIMIZE_VAR_ACCESS)) {
-            throw new \InvalidArgumentException(sprintf('Optimizer mode "%s" is not valid.', $optimizers));
-=======
         if ($optimizers > (self::OPTIMIZE_FOR | self::OPTIMIZE_RAW_FILTER | self::OPTIMIZE_TEXT_NODES)) {
             throw new \InvalidArgumentException(\sprintf('Optimizer mode "%s" is not valid.', $optimizers));
         }
 
         if (-1 !== $optimizers && self::OPTIMIZE_RAW_FILTER === (self::OPTIMIZE_RAW_FILTER & $optimizers)) {
             trigger_deprecation('twig/twig', '3.11', 'The "Twig\NodeVisitor\OptimizerNodeVisitor::OPTIMIZE_RAW_FILTER" option is deprecated and does nothing.');
->>>>>>> 3.0.4.2
         }
 
         $this->optimizers = $optimizers;
@@ -167,11 +153,7 @@ final class OptimizerNodeVisitor extends AbstractNodeVisitor
     /**
      * Optimizes "for" tag by removing the "loop" variable creation whenever possible.
      */
-<<<<<<< HEAD
-    private function enterOptimizeFor(Node $node, Environment $env)
-=======
     private function enterOptimizeFor(Node $node): void
->>>>>>> 3.0.4.2
     {
         if ($node instanceof ForNode) {
             // disable the loop variable by default
@@ -235,11 +217,7 @@ final class OptimizerNodeVisitor extends AbstractNodeVisitor
     /**
      * Optimizes "for" tag by removing the "loop" variable creation whenever possible.
      */
-<<<<<<< HEAD
-    private function leaveOptimizeFor(Node $node, Environment $env)
-=======
     private function leaveOptimizeFor(Node $node): void
->>>>>>> 3.0.4.2
     {
         if ($node instanceof ForNode) {
             array_shift($this->loops);

@@ -161,18 +161,6 @@ $(document).off('click.fmUpload').on('click.fmUpload', '#button-upload', functio
 	}).trigger('click');
 });
 
-<<<<<<< HEAD
-$('#button-folder').popover({
-	html: true,
-	placement: 'bottom',
-	trigger: 'click',
-	title: '{{ entry_folder }}',
-	content: function() {
-		html  = '<div class="input-group">';
-		html += '  <input type="text" name="folder" value="" placeholder="{{ entry_folder }}" class="form-control">';
-		html += '  <span class="input-group-btn"><button type="button" title="{{ button_folder }}" id="button-create" class="btn btn-primary"><i class="fa fa-plus-circle"></i></button></span>';
-		html += '</div>';
-=======
 $(document).off('click.fmFolder').on('click.fmFolder', '#button-folder', function() {
 	var $btn = $(this);
 	
@@ -187,7 +175,6 @@ $(document).off('click.fmFolder').on('click.fmFolder', '#button-folder', functio
 			html += '  <input type="text" name="folder" value="" placeholder="{{ entry_folder }}" class="form-control">';
 			html += '  <span class="input-group-btn"><button type="button" title="{{ button_folder }}" id="button-create" class="btn btn-primary"><i class="fa fa-plus-circle"></i></button></span>';
 			html += '</div>';
->>>>>>> 3.0.4.2
 
 			return html;
 		}

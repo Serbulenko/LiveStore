@@ -18,11 +18,7 @@ class MatchesBinary extends AbstractBinary
     public function compile(Compiler $compiler)
     {
         $compiler
-<<<<<<< HEAD
-            ->raw('preg_match(')
-=======
             ->raw('CoreExtension::matches(')
->>>>>>> 3.0.4.2
             ->subcompile($this->getNode('right'))
             ->raw(', ')
             ->subcompile($this->getNode('left'))

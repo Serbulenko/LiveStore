@@ -87,15 +87,9 @@ class ControllerBlogCategory extends Controller {
 
 			$parts = explode('_', (string)$this->request->get['blog_category_id']);
 
-<<<<<<< HEAD
-            $blog_category_id = (int)array_pop($parts);
-            
-            $blog_category_id_temp = 0;
-=======
 			$blog_category_id = (int)array_pop($parts);
 			
 			$blog_category_id_temp = 0;
->>>>>>> 3.0.4.2
 
             foreach ($parts as $blog_category_id_id) {
                 if (!$blog_category_id_temp) {

@@ -31,15 +31,7 @@ class TwigFilter
     private $arguments = [];
 
     /**
-<<<<<<< HEAD
-     * Creates a template filter.
-     *
-     * @param string        $name     Name of this filter
-     * @param callable|null $callable A callable implementing the filter. If null, you need to overwrite the "node_class" option to customize compilation.
-     * @param array         $options  Options array
-=======
      * @param callable|array{class-string, string}|null $callable A callable implementing the filter. If null, you need to overwrite the "node_class" option to customize compilation.
->>>>>>> 3.0.4.2
      */
     public function __construct(string $name, $callable = null, array $options = [])
     {
@@ -95,16 +87,12 @@ class TwigFilter
         return $this->arguments;
     }
 
-<<<<<<< HEAD
-    public function needsEnvironment()
-=======
     public function needsCharset(): bool
     {
         return $this->options['needs_charset'];
     }
 
     public function needsEnvironment(): bool
->>>>>>> 3.0.4.2
     {
         return $this->options['needs_environment'];
     }
@@ -145,16 +133,12 @@ class TwigFilter
         return (bool) $this->options['deprecated'];
     }
 
-<<<<<<< HEAD
-    public function getDeprecatedVersion()
-=======
     public function getDeprecatingPackage(): string
     {
         return $this->options['deprecating_package'];
     }
 
     public function getDeprecatedVersion(): string
->>>>>>> 3.0.4.2
     {
         return $this->options['deprecated'];
     }

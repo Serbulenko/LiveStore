@@ -15,9 +15,6 @@ use Twig\Compiler;
 
 class EqualBinary extends AbstractBinary
 {
-<<<<<<< HEAD
-    public function operator(Compiler $compiler)
-=======
     public function compile(Compiler $compiler): void
     {
         if (\PHP_VERSION_ID >= 80000) {
@@ -36,7 +33,6 @@ class EqualBinary extends AbstractBinary
     }
 
     public function operator(Compiler $compiler): Compiler
->>>>>>> 3.0.4.2
     {
         return $compiler->raw('==');
     }

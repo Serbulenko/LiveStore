@@ -57,11 +57,7 @@ class Parser
 
     public function getVarName()
     {
-<<<<<<< HEAD
-        return sprintf('__internal_%s', hash('sha256', __METHOD__.$this->stream->getSourceContext()->getCode().$this->varNameSalt++));
-=======
         return \sprintf('__internal_parse_%d', $this->varNameSalt++);
->>>>>>> 3.0.4.2
     }
 
     public function parse(TokenStream $stream, $test = null, $dropNeedle = false)
@@ -181,13 +177,8 @@ class Parser
                                 $e->appendMessage(\sprintf(' (expecting closing tag for the "%s" tag defined near line %s).', $callable[0]->getTag(), $lineno));
                             }
                         } else {
-<<<<<<< HEAD
-                            $e = new SyntaxError(sprintf('Unknown "%s" tag.', $token->getValue()), $token->getLine(), $this->stream->getSourceContext());
-                            $e->addSuggestions($token->getValue(), array_keys($this->env->getTags()));
-=======
                             $e = new SyntaxError(\sprintf('Unknown "%s" tag.', $token->getValue()), $token->getLine(), $this->stream->getSourceContext());
                             $e->addSuggestions($token->getValue(), array_keys($this->env->getTokenParsers()));
->>>>>>> 3.0.4.2
                         }
 
                         throw $e;
@@ -286,11 +277,7 @@ class Parser
         $this->embeddedTemplates[] = $template;
     }
 
-<<<<<<< HEAD
-    public function addImportedSymbol($type, $alias, $name = null, AbstractExpression $node = null)
-=======
     public function addImportedSymbol(string $type, string $alias, ?string $name = null, ?AbstractExpression $node = null): void
->>>>>>> 3.0.4.2
     {
         $this->importedSymbols[0][$type][$alias] = ['name' => $name, 'node' => $node];
     }
@@ -355,13 +342,7 @@ class Parser
         // check that the body does not contain non-empty output nodes
         if (
             ($node instanceof TextNode && !ctype_space($node->getAttribute('data')))
-<<<<<<< HEAD
-            ||
-            // the "&& !$node instanceof SpacelessNode" part of the condition must be removed in 3.0
-            (!$node instanceof TextNode && !$node instanceof BlockReferenceNode && ($node instanceof NodeOutputInterface && !$node instanceof SpacelessNode))
-=======
             || (!$node instanceof TextNode && !$node instanceof BlockReferenceNode && $node instanceof NodeOutputInterface)
->>>>>>> 3.0.4.2
         ) {
             if (str_contains((string) $node, \chr(0xEF).\chr(0xBB).\chr(0xBF))) {
                 $t = substr($node->getAttribute('data'), 3);

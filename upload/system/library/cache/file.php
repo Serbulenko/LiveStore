@@ -33,18 +33,8 @@ class File {
 						return false;
 					}
 
-<<<<<<< HEAD
-			$size = filesize($files[0]);
-
-			if ($size > 0) {
-				$data = fread($handle, $size);
-			} else {
-				$data = '';
-			}
-=======
 					if ( flock($handle, LOCK_SH) ) {
 						$size = @filesize($files[0]);
->>>>>>> 3.0.4.2
 
 						if ($size === false) {
 							flock($handle, LOCK_UN);
@@ -96,13 +86,8 @@ class File {
 
 		if ($files) {
 			foreach ($files as $file) {
-<<<<<<< HEAD
-				if (!@unlink($file)) {
-					clearstatcache(false, $file);
-=======
 				if (file_exists($file)) {
 					@unlink($file);
->>>>>>> 3.0.4.2
 				}
 			}
 		}

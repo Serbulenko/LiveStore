@@ -55,11 +55,7 @@ class Error extends \Exception
      * @param Source|string|null $source   The source context where the error occurred
      * @param \Exception         $previous The previous exception
      */
-<<<<<<< HEAD
-    public function __construct(string $message, int $lineno = -1, $source = null, \Exception $previous = null)
-=======
     public function __construct(string $message, int $lineno = -1, ?Source $source = null, ?\Throwable $previous = null)
->>>>>>> 3.0.4.2
     {
         parent::__construct('', 0, $previous);
 
@@ -122,14 +118,7 @@ class Error extends \Exception
         return $this->name ? new Source($this->sourceCode, $this->name, $this->sourcePath) : null;
     }
 
-<<<<<<< HEAD
-    /**
-     * Sets the source context of the Twig template where the error occurred.
-     */
-    public function setSourceContext(Source $source = null)
-=======
     public function setSourceContext(?Source $source = null): void
->>>>>>> 3.0.4.2
     {
         if (null === $source) {
             $this->sourceCode = $this->name = $this->sourcePath = null;
@@ -208,11 +197,7 @@ class Error extends \Exception
         foreach ($backtrace as $trace) {
             if (isset($trace['object']) && $trace['object'] instanceof Template && 'Twig_Template' !== \get_class($trace['object'])) {
                 $currentClass = \get_class($trace['object']);
-<<<<<<< HEAD
-                $isEmbedContainer = 0 === strpos($templateClass, $currentClass);
-=======
                 $isEmbedContainer = null === $templateClass ? false : str_starts_with($templateClass, $currentClass);
->>>>>>> 3.0.4.2
                 if (null === $this->name || ($this->name == $trace['object']->getTemplateName() && !$isEmbedContainer)) {
                     $template = $trace['object'];
                     $templateClass = \get_class($trace['object']);

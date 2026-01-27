@@ -10,94 +10,6 @@
 // ALTER TABLE `oc_product_to_category` ADD `main_category_id` TINYINT(1) NOT NULL DEFAULT '0' AFTER `category_id`;
 
 class SeoPro {
-<<<<<<< HEAD
-
-    private $config;
-    private $ajax = false;
-    private $request;
-    private $registry;
-    private $response;
-    private $url;
-    private $session;
-    private $db;
-    private $cat_tree = [];
-    private $keywords = [];
-    private $queries = [];
-    private $product_categories = [];
-    private $valide_get_param;
-
-    public function __construct($registry) {
-        $this->detectAjax();
-        $this->registry = $registry;
-        $this->config = $registry->get('config');
-
-        if(!$this->config->get('config_seo_pro'))
-            return;
-
-        $this->request = $registry->get('request');
-        $this->session = $registry->get('session');
-        $this->response = $registry->get('response');
-        $this->url = $registry->get('url');
-        $this->db = $registry->get('db');
-        $this->cache = $registry->get('cache');
-        $this->detectPostfix();
-        $this->detectLanguage();
-        $this->initHelpers();
-        if ($this->config->get('config_valide_param_flag')) {
-            $params = explode ("\r\n", $this->config->get('config_valide_params'));
-            if(!empty($params)) {
-                $this->valide_get_param = $params;
-            }
-        }
-    }
-
-    public function prepareRoute($parts) {
-
-        if (!empty($parts) && is_array($parts)) {
-
-            foreach($parts as $id => $part) {
-
-                if($this->config->get('config_seopro_lowercase'))
-                    $parts[$id] = utf8_strtolower($part);
-
-                if($parts[$id]) {
-
-                    $query = $this->getQueryByKeyword($parts[$id]);
-
-                    $url = explode('=', $query);
-
-                    if(!empty($url[0])) {
-
-                        if(!in_array($url[0], ['category_id', 'product_id', 'manufacturer_id', 'information_id', 'article_id', 'blog_category_id'])) {
-                            return $parts;
-                        }
-
-                        if ($url[0] == 'category_id') {
-                            if (!isset($this->request->get['path'])) {
-                                $this->request->get['path'] = $url[1];
-                            } else {
-                                $this->request->get['path'] .= '_' . $url[1];
-                            }
-                        } elseif ($url[0] == 'blog_category_id') {
-                            if (!isset($this->request->get['blog_category_id'])) {
-                                $this->request->get['blog_category_id'] = $url[1];
-                            } else {
-                                $this->request->get['blog_category_id'] .= '_' . $url[1];
-                            }
-                        } elseif (count($url) > 1) {
-                            $this->request->get[$url[0]] = $url[1];
-                        }
-                    }
-                }
-
-                unset($parts[$id]);
-            }
-
-            if(!$query) {
-                $this->request->get['route'] = 'error/not_found';
-                return [];
-            }
-=======
 	private $config;
 	private $ajax = false;
 	private $request;
@@ -749,7 +661,6 @@ class SeoPro {
             if (!is_array($blog_path)) {
                 $blog_path = [];
 			}
->>>>>>> 3.0.4.2
         }
 
         if (isset($this->request->get['product_id'])) {

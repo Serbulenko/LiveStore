@@ -23,31 +23,6 @@ final class StringLoaderExtension extends AbstractExtension
             new TwigFunction('template_from_string', [self::class, 'templateFromString'], ['needs_environment' => true]),
         ];
     }
-<<<<<<< HEAD
-}
-
-class_alias('Twig\Extension\StringLoaderExtension', 'Twig_Extension_StringLoader');
-}
-
-namespace {
-use Twig\Environment;
-use Twig\TemplateWrapper;
-
-/**
- * Loads a template from a string.
- *
- *     {{ include(template_from_string("Hello {{ name }}")) }}
- *
- * @param string $template A template as a string or object implementing __toString()
- * @param string $name     An optional name of the template to be used in error messages
- *
- * @return TemplateWrapper
- */
-function twig_template_from_string(Environment $env, $template, string $name = null)
-{
-    return $env->createTemplate((string) $template, $name);
-}
-=======
 
     /**
      * Loads a template from a string.
@@ -63,5 +38,4 @@ function twig_template_from_string(Environment $env, $template, string $name = n
     {
         return $env->createTemplate((string) $template, $name);
     }
->>>>>>> 3.0.4.2
 }

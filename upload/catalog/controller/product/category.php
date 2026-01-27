@@ -138,10 +138,7 @@ class ControllerProductCategory extends Controller {
 
 			if ($category_info['image']) {
 				$data['thumb'] = $this->model_tool_image->resize($category_info['image'], $this->config->get('theme_' . $this->config->get('config_theme') . '_image_category_width'), $this->config->get('theme_' . $this->config->get('config_theme') . '_image_category_height'));
-<<<<<<< HEAD
-=======
 				
->>>>>>> 3.0.4.2
 				$this->document->setOgImage($data['thumb']);
 			} else {
 				$data['thumb'] = $this->model_tool_image->resize('placeholder.png', $this->config->get('theme_' . $this->config->get('config_theme') . '_image_category_width'), $this->config->get('theme_' . $this->config->get('config_theme') . '_image_category_height'));

@@ -23,22 +23,6 @@ final class Token
     private $type;
     private $lineno;
 
-<<<<<<< HEAD
-    const EOF_TYPE = -1;
-    const TEXT_TYPE = 0;
-    const BLOCK_START_TYPE = 1;
-    const VAR_START_TYPE = 2;
-    const BLOCK_END_TYPE = 3;
-    const VAR_END_TYPE = 4;
-    const NAME_TYPE = 5;
-    const NUMBER_TYPE = 6;
-    const STRING_TYPE = 7;
-    const OPERATOR_TYPE = 8;
-    const PUNCTUATION_TYPE = 9;
-    const INTERPOLATION_START_TYPE = 10;
-    const INTERPOLATION_END_TYPE = 11;
-    const ARROW_TYPE = 12;
-=======
     public const EOF_TYPE = -1;
     public const TEXT_TYPE = 0;
     public const BLOCK_START_TYPE = 1;
@@ -54,7 +38,6 @@ final class Token
     public const INTERPOLATION_END_TYPE = 11;
     public const ARROW_TYPE = 12;
     public const SPREAD_TYPE = 13;
->>>>>>> 3.0.4.2
 
     /**
      * @param int    $type   The type of the token

@@ -36,13 +36,8 @@ class FilesystemLoader implements LoaderInterface, ExistsLoaderInterface, Source
      */
     public function __construct($paths = [], ?string $rootPath = null)
     {
-<<<<<<< HEAD
-        $this->rootPath = (null === $rootPath ? getcwd() : $rootPath).\DIRECTORY_SEPARATOR;
-        if (false !== $realPath = realpath($rootPath)) {
-=======
         $this->rootPath = ($rootPath ?? getcwd()).\DIRECTORY_SEPARATOR;
         if (null !== $rootPath && false !== ($realPath = realpath($rootPath))) {
->>>>>>> 3.0.4.2
             $this->rootPath = $realPath.\DIRECTORY_SEPARATOR;
         }
 
@@ -211,11 +206,7 @@ class FilesystemLoader implements LoaderInterface, ExistsLoaderInterface, Source
         }
 
         try {
-<<<<<<< HEAD
-            $this->validateName($name);
-=======
             [$namespace, $shortname] = $this->parseName($name);
->>>>>>> 3.0.4.2
 
             list($namespace, $shortname) = $this->parseName($name);
         } catch (LoaderError $e) {

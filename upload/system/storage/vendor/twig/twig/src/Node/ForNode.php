@@ -27,11 +27,7 @@ class ForNode extends Node
 {
     private $loop;
 
-<<<<<<< HEAD
-    public function __construct(AssignNameExpression $keyTarget, AssignNameExpression $valueTarget, AbstractExpression $seq, ?AbstractExpression $ifexpr, Node $body, ?Node $else, int $lineno, string $tag = null)
-=======
     public function __construct(AssignNameExpression $keyTarget, AssignNameExpression $valueTarget, AbstractExpression $seq, ?Node $ifexpr, Node $body, ?Node $else, int $lineno, ?string $tag = null)
->>>>>>> 3.0.4.2
     {
         $body = new Node([$body, $this->loop = new ForLoopNode($lineno, $tag)]);
 
