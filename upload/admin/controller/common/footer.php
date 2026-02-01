@@ -12,7 +12,7 @@ class ControllerCommonFooter extends Controller {
 
 			$data['extra_version'] = ' | PHP ' . $php_version . ' | IonCube ' . $ioncube_version . ' | Server time: ' . $server_time;
 		
-			if (ini_get('display_errors') && error_reporting()) {
+			if ($this->config->get('config_error_display')) {
 				$data['display_errors'] = $this->language->get('text_display_errors');
 			}
 		} else {

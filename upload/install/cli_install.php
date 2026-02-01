@@ -265,8 +265,6 @@ function write_config_files($options) {
 	$output .= 'define(\'DB_PREFIX\', \'' . addslashes($options['db_prefix']) . '\');' . "\n";
 	$output .= 'define(\'DB_PORT\', \'' . addslashes($options['db_port']) . '\');' . "\n\n";
 
-	$output .= 'define(\'SHOW_ERRORS\', true);' . "\n";
-
 	$file = fopen(DIR_OPENCART . 'config.php', 'w');
 
 	fwrite($file, $output);
@@ -309,8 +307,6 @@ function write_config_files($options) {
 
 	$output .= '// OpenCart API' . "\n";
 	$output .= 'define(\'OPENCART_SERVER\', \'https://www.opencart.com/\');' . "\n";
-
-	$output .= 'define(\'SHOW_ERRORS\', true);' . "\n";
 
 	$file = fopen(DIR_OPENCART . 'admin/config.php', 'w');
 
