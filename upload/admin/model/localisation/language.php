@@ -301,7 +301,7 @@ class ModelLocalisationLanguage extends Model {
 		if ($data) {
 			$sql = "SELECT * FROM " . DB_PREFIX . "language";
 			
-			if($status) {
+			if ($status) {
 				$sql .= " WHERE status = '1'";
 			}
 
