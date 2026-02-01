@@ -41,8 +41,6 @@ class ControllerInstallStep3 extends Controller {
 			$output .= 'define(\'DB_DATABASE\', \'' . addslashes($this->request->post['db_database']) . '\');' . "\n";
 			$output .= 'define(\'DB_PORT\', \'' . addslashes($this->request->post['db_port']) . '\');' . "\n";
 			$output .= 'define(\'DB_PREFIX\', \'' . addslashes($this->request->post['db_prefix']) . '\');' . "\n\n";
-
-			$output .= 'define(\'SHOW_ERRORS\', true);' . "\n";
 			
 			$file = fopen(DIR_OPENCART . 'config.php', 'w');
 
@@ -84,8 +82,6 @@ class ControllerInstallStep3 extends Controller {
 			$output .= 'define(\'DB_DATABASE\', \'' . addslashes($this->request->post['db_database']) . '\');' . "\n";
 			$output .= 'define(\'DB_PORT\', \'' . addslashes($this->request->post['db_port']) . '\');' . "\n";
 			$output .= 'define(\'DB_PREFIX\', \'' . addslashes($this->request->post['db_prefix']) . '\');' . "\n\n";
-
-			$output .= 'define(\'SHOW_ERRORS\', true);' . "\n";
 			
 			$file = fopen(DIR_OPENCART . 'admin/config.php', 'w');
 
