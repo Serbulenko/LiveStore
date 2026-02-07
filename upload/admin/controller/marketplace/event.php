@@ -392,7 +392,7 @@ class ControllerMarketplaceEvent extends Controller {
 		foreach ($fields as $field) {
 			if (isset($this->request->post[$field])) {
 				$data[$field] = $this->request->post[$field];
-			} elseif (!empty($event_info) && isset($event_info[$field])) {
+			} elseif (isset($event_info[$field])) {
 				$data[$field] = $event_info[$field];
 			} else {
 				if ($field == 'status') {
