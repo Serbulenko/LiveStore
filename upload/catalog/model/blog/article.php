@@ -431,7 +431,5 @@ class ModelBlogArticle extends Model {
 		}
 		
 		return $article_data;
-	}
-		
+	}		
 }
-?>

@@ -56,4 +56,3 @@ class ModelBlogCategory extends Model {
 		return count($this->getCategories((int)$parent_id));
 	}
 }
-?>
